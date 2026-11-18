@@ -81,7 +81,18 @@ The relay bridges encrypted QUIC streams and the broker only answers with relay
 addresses; neither sees the world's traffic. The shareable domain points friends to
 the relay, never to your home address, so your IP stays private.
 
-## Status
+## Personal project
+
+This is a personal tool made for hosting a Horizon world for friends. It is provided
+as-is with **no support**: issues may sit unanswered, features land when the author
+feels like it. Do not expect help — forks are yours to maintain.
+
+Not affiliated with e4mc or SkyVG. The public relay and broker are used through their
+open, documented protocol; both projects are MIT-licensed ([mod](https://github.com/vgskye/e4mc-minecraft-architectury),
+[relay](https://github.com/vgskye/e4mc-quiclime)), and this repository ships its own
+independent Rust implementation.
+
+## License
 
 Works today with the public e4mc network, live end to end: the broker hands back a
 relay, the tunnel completes the control handshake (the relay answers
@@ -90,4 +101,4 @@ an issue if your run misbehaves, with `RUST_LOG=debug`.
 
 ## License
 
-MIT OR Apache-2.0
+[MIT](LICENSE)
