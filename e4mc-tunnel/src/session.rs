@@ -135,8 +135,6 @@ async fn drive(
             &ServerboundMessage::RequestDomainAssignment,
         )?)
         .await?;
-    send_control.finish()?;
-
     let handshake = control_handshake(&mut recv_control, &events);
     tokio::select! {
         result = handshake => { result?; }

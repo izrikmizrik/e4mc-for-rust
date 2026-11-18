@@ -44,11 +44,14 @@ fallback релей `test.e4mc.link:25575` (как `Config.java` в Java-мод�
 - [x] интеграционный тест: self-signed fake relay, echo LAN-сервер, домен + раундтрип
 - [x] `cargo test` / `cargo clippy --all-targets` / `cargo fmt --check` — чисто
 
-## Проверено live
+## Проверено live (end-to-end с публичной сетью e4mc)
 
-Публичный брокер e4mc отвечает (релей `uk`), QUIC + ALPN + контрол-обмен идут;
-текущий публичный релей рвёт соединение через ~1 с — точные ожидания по
-capabilities (ответ на `ProbeCapabilities`) не сверены — следующий шаг с `RUST_LOG=debug`.
+Брокер выдаёт релей (`uk`), QUIC + ALPN + контрол-handshake идут, релей отвечает
+`HasCapabilities {caps: ["dialtone_sidecar"]}`, домен назначается — `triangle-pope.uk.e4mc.link`,
+сессия держится, туннель печатает «Your world is open to the internet».
+Причина прежнего «connection lost через 1 с» найдена и устранена: Java-мод не делает
+`finish()` контрол-стрима после handshake (QuiclimeSession.java:387-392) — стрим
+живёт до disconnect.
 
 ## Дальше
 

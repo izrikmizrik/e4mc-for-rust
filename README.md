@@ -83,11 +83,10 @@ the relay, never to your home address, so your IP stays private.
 
 ## Status
 
-Works today with the public e4mc network: domain assignment and bridged guest traffic
-are covered by tests, and the relay handshake was checked live. The exact capabilities
-reply the current public relay expects may need one more alignment pass — open an
-issue if the tunnel logs `connection lost` right after connecting, and run with
-`RUST_LOG=debug` to see the control exchange.
+Works today with the public e4mc network, live end to end: the broker hands back a
+relay, the tunnel completes the control handshake (the relay answers
+`dialtone_sidecar` capabilities), a domain is assigned, and the session holds. Open
+an issue if your run misbehaves, with `RUST_LOG=debug`.
 
 ## License
 
