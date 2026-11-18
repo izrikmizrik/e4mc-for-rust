@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = ["e4mc-tunnel"]
+
+[profile.release]
+lto = "thin"

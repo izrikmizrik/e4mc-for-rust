@@ -1,0 +1,28 @@
+[package]
+name = "e4mc-tunnel"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "Open a Horizon (Rust Minecraft) LAN world to the internet through the public e4mc relay network. No ports, no VPN, no VPS."
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+log = "0.4"
+env_logger = "0.11"
+quinn = "0.11"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "io-util", "net", "signal", "time", "sync"] }
+ureq = "2"
+rustls = { version = "0.23", default-features = false, features = ["std", "ring"] }
+rustls-pki-types = "1"
+webpki-roots = "0.26"
+
+[dev-dependencies]
+rcgen = "0.13"
+
+[[bin]]
+name = "e4mc-tunnel"
+path = "src/main.rs"
