@@ -104,10 +104,16 @@ pub async fn run_session(
     )?;
     endpoint.set_default_client_config(make_client_config(&config.extra_root_certs)?);
 
-    let address = tokio::net::lookup_host((config.relay.host.as_str(), config.relay.port))
-        .await
-        .map_err(|_| SessionError::InvalidAddress)?
-        .next()
+    let addresses: Vec<std::net::SocketAddr> =
+        tokio::net::lookup_host((config.relay.host.as_str(), config.relay.port))
+            .await
+            .map_err(|_| SessionError::InvalidAddress)?
+            .collect();
+    let address = addresses
+        .iter()
+        .find(|address| address.is_ipv6() == config.lan_address.is_ipv6())
+        .or_else(|| addresses.first())
+        .copied()
         .ok_or(SessionError::InvalidAddress)?;
     let connection = endpoint.connect(address, &config.relay.host)?.await?;
     log::info!("relay {} connected", config.relay.id);
